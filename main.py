@@ -1,12 +1,16 @@
 import time
 from PIL import Image
 
+import torch
 import numpy as np
 from torch.autograd import Variable
-from torchvision.models import squeezenet1_1
+from torchvision.models import squeezenet1_1, resnet18, alexnet, vgg11, densenet121
 from torchvision.transforms import Normalize, Compose, RandomSizedCrop, RandomHorizontalFlip, ToTensor
 
-model = squeezenet1_1(pretrained=True)
+print(torch.__version__)
+
+
+model = squeezenet1_1()
 model.eval()
 
 transform = Compose([
@@ -17,13 +21,12 @@ transform = Compose([
               std=[0.229, 0.224, 0.225]),
 ])
 
-
 pil_image = Image.open('cat.jpg')
 
 inferences = []
 predictions = []
 
-for i in range(1, 1000):
+for i in range(1, 10):
     prediction_meter = time.time()
     image = transform(pil_image)
     image.unsqueeze_(0)
