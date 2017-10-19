@@ -2,6 +2,7 @@ import time
 from PIL import Image
 
 import torch
+from tqdm import tqdm
 import numpy as np
 from torch.autograd import Variable
 from torchvision.models import squeezenet1_1, resnet18, alexnet, vgg11, densenet121
@@ -26,7 +27,7 @@ pil_image = Image.open('cat.jpg')
 inferences = []
 predictions = []
 
-for i in range(1, 10):
+for i in tqdm(range(1, 10)):
     prediction_meter = time.time()
     image = transform(pil_image)
     image.unsqueeze_(0)
